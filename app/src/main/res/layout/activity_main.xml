@@ -261,4 +261,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 
+    <Button
+        android:id="@+id/mic"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_baseline_mic_24"/>
+
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
     TextView Location, cur_weather, temperature,  min_max, wind, humidity, pressure, lat_lon;
     ImageView weatherIcon;
     SwitchCompat darkmode;
+    Button mic;
 
 
     LocationManager wLocationManager;
     LocationListener wLocationListner;
+    TextToSpeech TS;
 
 
     @Override
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         min_max = findViewById(R.id.min_max);
         lat_lon = findViewById(R.id.lat_lon);
         darkmode = findViewById(R.id.darkmode);
-
+        mic = findViewById(R.id.mic);
 
 
 
