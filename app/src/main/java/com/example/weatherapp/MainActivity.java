@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     String Location_Provider = LocationManager.GPS_PROVIDER;
 
-    TextView Location, cur_weather, temperature,  Lat, Lon, Temp_min, Temp_max, wind, humidity, pressure, m, l;
+    TextView Location, cur_weather, temperature,  min_max, wind, humidity, pressure, lat_lon;
     ImageView weatherIcon;
 
 
@@ -57,12 +57,13 @@ public class MainActivity extends AppCompatActivity {
         cur_weather = findViewById(R.id.cur_weather);
         humidity = findViewById(R.id.humidity);
         pressure = findViewById(R.id.pressure);
-        //temperature = findViewById(R.id.temp);
-       /* wind = findViewById(R.id.wind);
+        wind = findViewById(R.id.wind);
+        temperature = findViewById(R.id.temp);
 
-        m = findViewById(R.id.min_max);
-        l = findViewById(R.id.lat_lon);
-*/
+
+        min_max = findViewById(R.id.min_max);
+        lat_lon = findViewById(R.id.lat_lon);
+
 
         weatherIcon = findViewById(R.id.weather_icon);
 
@@ -153,14 +154,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateWeather(WeatherData wd){
 
-        //temperature.setText(wd.getTemperature());
+        temperature.setText(wd.getTemperature());
         Location.setText(wd.getLocation());
         cur_weather.setText(wd.getWeatherType());
         humidity.setText(wd.getHumidity());
         pressure.setText(wd.getPressure());
-       /* wind.setText(wd.getWind());
+        wind.setText(wd.getWind());
+        min_max.setText(wd.getTemp_min_max());
+        lat_lon.setText(wd.getLat_Long());
 
-*/
+
         int resourceID=getResources().getIdentifier(wd.getIcon(),"drawable",getPackageName());
         weatherIcon.setImageResource(resourceID);
 
