@@ -2,6 +2,8 @@ package com.example.weatherapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -12,8 +14,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView Location, cur_weather, temperature,  min_max, wind, humidity, pressure, lat_lon;
     ImageView weatherIcon;
+    SwitchCompat darkmode;
 
 
     LocationManager wLocationManager;
@@ -51,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
 
 
         Location = findViewById(R.id.location);
@@ -59,10 +70,24 @@ public class MainActivity extends AppCompatActivity {
         pressure = findViewById(R.id.pressure);
         wind = findViewById(R.id.wind);
         temperature = findViewById(R.id.temp);
-
-
         min_max = findViewById(R.id.min_max);
         lat_lon = findViewById(R.id.lat_lon);
+        darkmode = findViewById(R.id.darkmode);
+
+
+
+
+        darkmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                }
+            }
+        });
 
 
         weatherIcon = findViewById(R.id.weather_icon);
@@ -129,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     public void Networking(RequestParams params){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(60000);
-        Toast.makeText(MainActivity.this," Going to run UI link"+WEATHER_URL+params,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this," Going to run UI link"+WEATHER_URL+params,Toast.LENGTH_SHORT).show();
         client.get(WEATHER_URL,params,new JsonHttpResponseHandler(){
             @Override
 

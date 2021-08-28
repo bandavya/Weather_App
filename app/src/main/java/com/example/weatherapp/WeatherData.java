@@ -48,7 +48,43 @@ public class WeatherData {
         return (int) Math.rint(abc);
     }
 
-    private static String updateIcon(int Condition) {
+    private static String updateIcon(int condition) {
+
+        if(condition==800)
+        {
+            return "sunny";
+        }
+        else if(condition==801)
+        {
+            return "fewclouds";
+        }
+        else if(condition==802)
+        {
+            return "scatteredclouds";
+        }
+        else if(condition==803 || condition==804)
+        {
+            return "brokenclouds";
+        }
+        else if(condition>=200 && condition<=232)
+        {
+            return "thunderstorm";
+        }
+        else if(condition>=300 && condition<=321)
+        {
+            return "showerrain";
+        }
+        else  if(condition>=500 && condition<=531){
+            return "rain";
+        }
+        else  if(condition>=600 && condition<=622){
+            return "snow";
+        }
+
+        else  if(condition>=700 && condition<=781){
+            return "mist";
+        }
+
         return "suncloud";
     }
 
