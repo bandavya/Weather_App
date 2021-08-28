@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="todo">TODO</string>
+    <string name="blank">---</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="lat_lon">Lat/Lon</string>
+    <string name="location">Location</string>
+    <string name="min_max">Min/Max</string>
+</resources>
