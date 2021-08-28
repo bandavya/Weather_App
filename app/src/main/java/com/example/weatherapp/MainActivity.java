@@ -14,10 +14,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -29,6 +31,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
+
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView weatherIcon;
     SwitchCompat darkmode;
     Button mic;
-
+    String ed1;
 
     LocationManager wLocationManager;
     LocationListener wLocationListner;
@@ -78,7 +82,29 @@ public class MainActivity extends AppCompatActivity {
         darkmode = findViewById(R.id.darkmode);
         mic = findViewById(R.id.mic);
 
+        TS=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    TS.setLanguage(Locale.UK);
+                }
+            }
+        });
 
+        mic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String toSpeak = ed1.getText().toString();
+                String toSpeak;
+                if (TextUtils.isEmpty(ed1)) {
+                    toSpeak = "Please wait for the information to load"; }
+                else{
+                    toSpeak = ed1;
+                }
+                Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
+                TS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
 
         darkmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -178,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Did not get DATA",Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void updateWeather(WeatherData wd){
@@ -190,6 +217,15 @@ public class MainActivity extends AppCompatActivity {
         wind.setText(wd.getWind());
         min_max.setText(wd.getTemp_min_max());
         lat_lon.setText(wd.getLat_Long());
+
+        ed1 = "You are at "+wd.getLocation() +" and currently the weather is " + wd.getWeatherType()
+                + " and the temperature is " + wd.getTemperature()+ ". Wind speed is " + wd.getWind()
+                + ", humidity is " +wd.getHumidity() + " and the pressure is " + wd.getPressure();
+
+        //Toast.makeText(MainActivity.this, ed1 , Toast.LENGTH_LONG).show();
+
+
+
 
 
         int resourceID=getResources().getIdentifier(wd.getIcon(),"drawable",getPackageName());
